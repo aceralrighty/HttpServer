@@ -2,16 +2,25 @@ package org.example.http;
 
 
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Set;
 
 public class HttpRequest extends HttpMessage {
     @Getter
     private HttpMethod method;
+    @Getter
     private String requestTarget;
     @Getter
     private String originalHttpVersion; // literal from request
 
     @Getter
     private HttpVersion bestCompatibleVersion;
+
+    @Getter
+    @Setter
+    private HashMap<String, String> headers = new HashMap<>();
 
     void setlHttpVersion(String originalHttpVersion) throws BadHttpVersionException, HttpParsingException {
         this.originalHttpVersion = originalHttpVersion;
@@ -23,6 +32,14 @@ public class HttpRequest extends HttpMessage {
 
     HttpRequest() {
 
+    }
+
+    public Set<String> getHeaderNames() {
+        return headers.keySet();
+    }
+
+    public String getHeader(String name) {
+        return headers.get(name.toLowerCase());
     }
 
     void setMethod(String methodName) throws HttpParsingException {
@@ -42,8 +59,7 @@ public class HttpRequest extends HttpMessage {
         this.requestTarget = requestTarget;
     }
 
-    public String getRequestTarget() {
-        return requestTarget;
+    void addHeader(String name, String value) {
+        headers.put(name.toLowerCase(), value);
     }
-
 }

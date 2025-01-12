@@ -1,4 +1,4 @@
 {
   "port": 8080,
-  "webRoot": "/tmp"
+  "webRoot": "/Users/adamziv/Desktop/SimpleHttpServer/HttpServer/WebRoot/index.html"
 }
