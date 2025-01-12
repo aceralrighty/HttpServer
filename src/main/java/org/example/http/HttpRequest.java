@@ -1,17 +1,28 @@
 package org.example.http;
 
 
+import lombok.Getter;
+
 public class HttpRequest extends HttpMessage {
+    @Getter
     private HttpMethod method;
     private String requestTarget;
-    private String httpVersion;
+    @Getter
+    private String originalHttpVersion; // literal from request
+
+    @Getter
+    private HttpVersion bestCompatibleVersion;
+
+    void setlHttpVersion(String originalHttpVersion) throws BadHttpVersionException, HttpParsingException {
+        this.originalHttpVersion = originalHttpVersion;
+        this.bestCompatibleVersion = HttpVersion.getBestCompatibleVersion(originalHttpVersion);
+        if (this.bestCompatibleVersion == null) {
+            throw new HttpParsingException(HttpStatusCode.SERVER_ERROR_505_VERSION_NOT_SUPPORTED);
+        }
+    }
 
     HttpRequest() {
 
-    }
-
-    public HttpMethod getMethod() {
-        return method;
     }
 
     void setMethod(String methodName) throws HttpParsingException {
@@ -34,4 +45,5 @@ public class HttpRequest extends HttpMessage {
     public String getRequestTarget() {
         return requestTarget;
     }
+
 }
