@@ -93,11 +93,11 @@ public class HttpParser {
             }
             if (_byte == SP) {
                 if (!methodParsed) {
-                    LOGGER.debug("Request Line METHOD to Process: {}", processingDataBuffer.toString());
+                    LOGGER.debug("Request Line METHOD to Process: {}", processingDataBuffer);
                     request.setMethod(processingDataBuffer.toString());
                     methodParsed = true;
                 } else if (!requestTargetParsed) {
-                    LOGGER.debug("Request Line REQ TARGET to Process: {}", processingDataBuffer.toString());
+                    LOGGER.debug("Request Line REQ TARGET to Process: {}", processingDataBuffer);
                     request.setRequestTarget(processingDataBuffer.toString());
                     requestTargetParsed = true;
                 } else {

@@ -33,13 +33,13 @@ public class ConfigurationManager {
      * @param configFilePath
      */
     public void loadConfigurationFile(String configFilePath) {
-        FileReader fileReader = null;
+        FileReader fileReader;
         try {
             fileReader = new FileReader(configFilePath);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int i;
         try{
             while(( i = fileReader.read()) != -1){
@@ -48,7 +48,7 @@ public class ConfigurationManager {
         } catch (IOException e) {
             throw new HttpConfigurationException("Error while reading configuration file", e);
         }
-        JsonNode conf = null;
+        JsonNode conf;
         try {
             conf = JsonParser.parse(sb.toString());
         } catch (IOException e) {
